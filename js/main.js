@@ -97,6 +97,39 @@
     return text;
   }
 
+  /**
+   * microCMSの画像フィールドを取得する（フィールドIDの揺れに対応）
+   * @param {Object} item
+   * @returns {Object|null} {url, width, height} 形式、無ければnull
+   */
+  function getImageField(item) {
+    var candidates = [item.image, item.mainvisual, item.visual, item.thumbnail];
+    for (var i = 0; i < candidates.length; i++) {
+      if (candidates[i] && candidates[i].url) return candidates[i];
+    }
+    return null;
+  }
+
+  /**
+   * お知らせ本文を表示用HTMLに整形する。
+   * リッチエディタのHTML（タグ入り）はそのまま使い、
+   * プレーンテキスト（タグなし）の場合のみ改行を<br>に、URLをリンクに変換する。
+   * @param {string} raw
+   * @returns {string}
+   */
+  function formatBodyHtml(raw) {
+    if (!raw) return "";
+    if (/<[a-z][\s\S]*>/i.test(raw)) return raw;
+    var esc = raw
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+    esc = esc.replace(/(https?:\/\/[^\s<]+)/g, function (url) {
+      return '<a href="' + url + '" target="_blank" rel="noopener">' + url + "</a>";
+    });
+    return esc.replace(/\n/g, "<br>");
+  }
+
   function showEmptyState(container, message) {
     if (!container) return;
     container.classList.add("is-message");
@@ -131,6 +164,18 @@
     items.forEach(function (item) {
       var li = document.createElement("li");
 
+      var imageData = getImageField(item);
+      if (imageData) {
+        var thumb = document.createElement("div");
+        thumb.className = "info-thumb";
+        var img = document.createElement("img");
+        img.src = imageData.url;
+        img.alt = item.title || "";
+        img.loading = "lazy";
+        thumb.appendChild(img);
+        li.appendChild(thumb);
+      }
+
       var dateEl = document.createElement("span");
       dateEl.className = "info-date";
       dateEl.textContent = formatDate(item.date);
@@ -142,7 +187,7 @@
 
       var bodyEl = document.createElement("div");
       bodyEl.className = "info-body";
-      bodyEl.innerHTML = item.body || "";
+      bodyEl.innerHTML = formatBodyHtml(item.body);
       li.appendChild(bodyEl);
 
       container.appendChild(li);
@@ -180,6 +225,14 @@
 
       var thumb = document.createElement("div");
       thumb.className = "card-thumb";
+      var topImageData = getImageField(item);
+      if (topImageData) {
+        var topImg = document.createElement("img");
+        topImg.src = topImageData.url;
+        topImg.alt = item.title || "";
+        topImg.loading = "lazy";
+        thumb.appendChild(topImg);
+      }
       article.appendChild(thumb);
 
       var body = document.createElement("div");
@@ -256,8 +309,8 @@
 
       var thumb = document.createElement("div");
       thumb.className = "card-thumb thumb-event";
-      var imageData = item.image || item.mainvisual;
-      if (imageData && imageData.url) {
+      var imageData = getImageField(item);
+      if (imageData) {
         var img = document.createElement("img");
         img.src = imageData.url;
         img.alt = item.title || "";
