@@ -85,6 +85,7 @@ img { max-width: 100%; display: block; }
   text-decoration: none;
 }
 .brand .logo-leaf { flex: none; }
+.brand .logo-img { flex: none; width: 40px; height: 40px; object-fit: contain; }
 .brand-text .brand-title {
   font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
   font-size: 1.5rem;
