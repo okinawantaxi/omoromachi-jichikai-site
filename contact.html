@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お問い合わせ｜おもろまち自治会</title>
+<meta name="description" content="おもろまち自治会へのお問い合わせはこちらから。">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===== 共通ヘッダー ===== -->
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <svg class="logo-leaf" width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M20 4C10 10 6 20 8 32c12 2 22-4 28-14C30 10 24 6 20 4z" fill="#3d6152"/>
+        <path d="M12 30C16 22 24 16 32 14" stroke="#8fbfa5" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-text">
+        <span class="brand-title">おもろまち</span>
+        <span class="brand-sub">Omoromachi Neighborhood Association</span>
+      </span>
+    </a>
+    <div class="header-sns">
+      <a class="sns-btn" href="https://page.line.me/620akybx?openQrModal=true" target="_blank" rel="noopener" aria-label="公式LINE">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.7.2.8.5.1.3.1.7 0 .9l-.1.8c0 .3-.2 1 .9.5s5.7-3.4 7.8-5.8C21 14.5 22 12.8 22 11c0-4.4-4.5-8-10-8z" fill="#fff"/></svg>
+      </a>
+      <a class="sns-btn" href="https://www.instagram.com/omoromachijichikai/" target="_blank" rel="noopener" aria-label="公式Instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c2.7 0 3 0 4.1.1 1 0 1.7.2 2.3.4.6.3 1.1.6 1.6 1.1.5.5.8 1 1.1 1.6.2.6.4 1.3.4 2.3.1 1.1.1 1.4.1 4.1s0 3-.1 4.1c0 1-.2 1.7-.4 2.3-.3.6-.6 1.1-1.1 1.6-.5.5-1 .8-1.6 1.1-.6.2-1.3.4-2.3.4-1.1.1-1.4.1-4.1.1s-3 0-4.1-.1c-1 0-1.7-.2-2.3-.4-.6-.3-1.1-.6-1.6-1.1-.5-.5-.8-1-1.1-1.6-.2-.6-.4-1.3-.4-2.3C2 15 2 14.7 2 12s0-3 .1-4.1c0-1 .2-1.7.4-2.3.3-.6.6-1.1 1.1-1.6.5-.5 1-.8 1.6-1.1.6-.2 1.3-.4 2.3-.4C9 2 9.3 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10z" fill="#fff"/></svg>
+      </a>
+    </div>
+    <button class="nav-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="mainnav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<nav class="site-nav" id="mainnav">
+  <ul class="nav-list">
+    <li><a href="index.html">ホーム</a></li>
+    <li><a href="news.html">お知らせ</a></li>
+    <li><a href="event.html">イベント</a></li>
+    <li><a href="bousai.html">防災・防犯</a></li>
+    <li><a href="about.html">会則・役員</a></li>
+    <li><a href="contact.html" class="current">お問い合わせ</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero">
+  <h1 class="mincho">お問い合わせ</h1>
+  <p>ご意見・ご質問など、お気軽にお寄せください</p>
+</section>
+
+<section class="section">
+  <div class="container">
+    <p class="lead">下記フォームからお問い合わせいただけます。お急ぎの場合や、フォームがうまく動作しない場合は、公式LINEからもご連絡いただけます。</p>
+
+    <div class="placeholder-note" style="max-width:680px;margin:0 auto 24px">
+      ※ 現在は暫定的に、お使いのメールソフトが起動する形式（mailto）で送信します。将来的にはFormspree等のフォーム送信サービスの導入を検討しています。
+    </div>
+
+    <!--
+      暫定フォーム：mailto送信。
+      将来的にFormspree等のフォーム送信サービス導入を検討。
+    -->
+    <form class="form-card" action="mailto:atsuyasama@gmail.com" method="post" enctype="text/plain">
+      <div class="form-field">
+        <label for="name">お名前<span class="req">※必須</span></label>
+        <input type="text" id="name" name="お名前" required autocomplete="name" placeholder="例：新都心 太郎">
+      </div>
+      <div class="form-field">
+        <label for="contact">ご連絡先（メールまたは電話）<span class="req">※必須</span></label>
+        <input type="text" id="contact" name="ご連絡先" required placeholder="例：example@example.com">
+      </div>
+      <div class="form-field">
+        <label for="message">お問い合わせ内容<span class="req">※必須</span></label>
+        <textarea id="message" name="お問い合わせ内容" required placeholder="お問い合わせ内容をご記入ください"></textarea>
+      </div>
+      <div style="text-align:center">
+        <button type="submit" class="btn btn-primary">この内容で送信する</button>
+      </div>
+    </form>
+
+    <div class="sns-banner" style="max-width:680px;margin:34px auto 0">
+      <h2>LINEからのお問い合わせ</h2>
+      <p>友だち追加後、トークからメッセージをお送りください。</p>
+      <div class="sns-banner-btns">
+        <a class="btn sns-line" href="https://page.line.me/620akybx?openQrModal=true" target="_blank" rel="noopener">LINEで友だち追加</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 共通フッター ===== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="brand-title">おもろまち自治会</span>
+        <p>沖縄県那覇市おもろまち（新都心地区）<br>Omoromachi Neighborhood Association</p>
+        <div class="footer-sns">
+          <a class="sns-btn" href="https://page.line.me/620akybx?openQrModal=true" target="_blank" rel="noopener" aria-label="公式LINE">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.7.2.8.5.1.3.1.7 0 .9l-.1.8c0 .3-.2 1 .9.5s5.7-3.4 7.8-5.8C21 14.5 22 12.8 22 11c0-4.4-4.5-8-10-8z" fill="#fff"/></svg>
+          </a>
+          <a class="sns-btn" href="https://www.instagram.com/omoromachijichikai/" target="_blank" rel="noopener" aria-label="公式Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c2.7 0 3 0 4.1.1 1 0 1.7.2 2.3.4.6.3 1.1.6 1.6 1.1.5.5.8 1 1.1 1.6.2.6.4 1.3.4 2.3.1 1.1.1 1.4.1 4.1s0 3-.1 4.1c0 1-.2 1.7-.4 2.3-.3.6-.6 1.1-1.1 1.6-.5.5-1 .8-1.6 1.1-.6.2-1.3.4-2.3.4-1.1.1-1.4.1-4.1.1s-3 0-4.1-.1c-1 0-1.7-.2-2.3-.4-.6-.3-1.1-.6-1.6-1.1-.5-.5-.8-1-1.1-1.6-.2-.6-.4-1.3-.4-2.3C2 15 2 14.7 2 12s0-3 .1-4.1c0-1 .2-1.7.4-2.3.3-.6.6-1.1 1.1-1.6.5-.5 1-.8 1.6-1.1.6-.2 1.3-.4 2.3-.4C9 2 9.3 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10z" fill="#fff"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h3>メニュー</h3>
+        <ul>
+          <li><a href="index.html">ホーム</a></li>
+          <li><a href="news.html">お知らせ</a></li>
+          <li><a href="event.html">イベント</a></li>
+          <li><a href="bousai.html">防災・防犯</a></li>
+          <li><a href="about.html">会則・役員</a></li>
+          <li><a href="contact.html">お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>お問い合わせ</h3>
+        <ul>
+          <li><a href="contact.html">お問い合わせフォーム</a></li>
+          <li><a href="https://page.line.me/620akybx?openQrModal=true" target="_blank" rel="noopener">公式LINE</a></li>
+          <li><a href="https://www.instagram.com/omoromachijichikai/" target="_blank" rel="noopener">公式Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; おもろまち自治会 All Rights Reserved.
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
