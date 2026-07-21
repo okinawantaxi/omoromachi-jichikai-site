@@ -219,12 +219,15 @@
 
     fetchEvents()
       .then(function (list) {
-        var upcoming = sortByDate(
-          list.filter(function (item) { return item.status === "開催予定"; }),
-          "asc"
-        );
+        var now = new Date();
+        var isUpcoming = function (item) {
+          if (item.status) return item.status === "開催予定";
+          var d = new Date(item.date);
+          return !isNaN(d) && d >= now;
+        };
+        var upcoming = sortByDate(list.filter(isUpcoming), "asc");
         var past = sortByDate(
-          list.filter(function (item) { return item.status === "終了"; }),
+          list.filter(function (item) { return !isUpcoming(item); }),
           "desc"
         );
 
@@ -253,9 +256,10 @@
 
       var thumb = document.createElement("div");
       thumb.className = "card-thumb thumb-event";
-      if (item.image && item.image.url) {
+      var imageData = item.image || item.mainvisual;
+      if (imageData && imageData.url) {
         var img = document.createElement("img");
-        img.src = item.image.url;
+        img.src = imageData.url;
         img.alt = item.title || "";
         img.loading = "lazy";
         thumb.appendChild(img);
