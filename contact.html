@@ -54,31 +54,10 @@
   <div class="container">
     <p class="lead">下記フォームからお問い合わせいただけます。お急ぎの場合や、フォームがうまく動作しない場合は、公式LINEからもご連絡いただけます。</p>
 
-    <div class="placeholder-note" style="max-width:680px;margin:0 auto 24px">
-      ※ 現在は暫定的に、お使いのメールソフトが起動する形式（mailto）で送信します。将来的にはFormspree等のフォーム送信サービスの導入を検討しています。
+    <div class="form-card" style="max-width:680px;margin:0 auto;padding:0;overflow:hidden">
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeW_NnvKayfMpZltiSsF2vwpjryYNPVtMhTRdMcZ5rl6cnwTA/viewform?embedded=true"
+        width="100%" height="900" style="border:0;display:block" title="お問い合わせフォーム">読み込んでいます…</iframe>
     </div>
-
-    <!--
-      暫定フォーム：mailto送信。
-      将来的にFormspree等のフォーム送信サービス導入を検討。
-    -->
-    <form class="form-card" action="mailto:atsuyasama@gmail.com" method="post" enctype="text/plain">
-      <div class="form-field">
-        <label for="name">お名前<span class="req">※必須</span></label>
-        <input type="text" id="name" name="お名前" required autocomplete="name" placeholder="例：新都心 太郎">
-      </div>
-      <div class="form-field">
-        <label for="contact">ご連絡先（メールまたは電話）<span class="req">※必須</span></label>
-        <input type="text" id="contact" name="ご連絡先" required placeholder="例：example@example.com">
-      </div>
-      <div class="form-field">
-        <label for="message">お問い合わせ内容<span class="req">※必須</span></label>
-        <textarea id="message" name="お問い合わせ内容" required placeholder="お問い合わせ内容をご記入ください"></textarea>
-      </div>
-      <div style="text-align:center">
-        <button type="submit" class="btn btn-primary">この内容で送信する</button>
-      </div>
-    </form>
 
     <div class="sns-banner" style="max-width:680px;margin:34px auto 0">
       <h2>LINEからのお問い合わせ</h2>
