@@ -570,3 +570,7 @@ img { max-width: 100%; display: block; }
   .section { padding: 44px 0; }
   .header-inner { padding: 10px 16px; }
 }
+
+/* お知らせ本文内のチラシ画像 */
+.info-list .info-body img { display: block; width: 100%; max-width: 360px; height: auto; border-radius: 8px; margin: 0 0 12px; }
+.card-thumb img { object-position: top; }

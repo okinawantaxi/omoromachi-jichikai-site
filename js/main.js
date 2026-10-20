@@ -107,7 +107,9 @@
     for (var i = 0; i < candidates.length; i++) {
       if (candidates[i] && candidates[i].url) return candidates[i];
     }
-    return null;
+    // 画像フィールドが空なら、本文中の最初の画像（チラシ等）を代わりに使う
+    var m = /<img[^>]+src="([^"]+)"/i.exec(item.body || "");
+    return m ? { url: m[1], fromBody: true } : null;
   }
 
   /**
@@ -165,7 +167,7 @@
       var li = document.createElement("li");
 
       var imageData = getImageField(item);
-      if (imageData) {
+      if (imageData && !imageData.fromBody) {
         var thumb = document.createElement("div");
         thumb.className = "info-thumb";
         var img = document.createElement("img");
