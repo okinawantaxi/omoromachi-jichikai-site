@@ -138,20 +138,41 @@
     container.textContent = message;
   }
 
-  /* ---------- news.html: お知らせ一覧 ---------- */
+  /**
+   * お知らせ(oshirase)とイベント(event)を両方取得し、種別(_kind)を付ける
+   * 片方が失敗してももう片方は返す。両方失敗した場合は failedAll=true
+   * @returns {Promise<{items: Array, failedAll: boolean}>}
+   */
+  function fetchAllNews() {
+    var failed = 0;
+    var load = function (fetcher, kind) {
+      return fetcher()
+        .then(function (list) {
+          return list.map(function (item) { item._kind = kind; return item; });
+        })
+        .catch(function (err) {
+          failed++;
+          console.error(kind + "の取得に失敗しました:", err);
+          return [];
+        });
+    };
+    return Promise.all([load(fetchOshirase, "お知らせ"), load(fetchEvents, "イベント")]).then(function (res) {
+      return { items: res[0].concat(res[1]), failedAll: failed === 2 };
+    });
+  }
+
+  /* ---------- news.html: お知らせ・イベント一覧（新しい順） ---------- */
   function initOshiraseList() {
     var container = document.getElementById("oshirase-list");
     if (!container) return;
 
-    fetchOshirase()
-      .then(function (list) {
-        var sorted = sortByDate(list, "desc");
-        renderOshiraseList(container, sorted);
-      })
-      .catch(function (err) {
-        console.error("お知らせの取得に失敗しました:", err);
+    fetchAllNews().then(function (res) {
+      if (res.failedAll) {
         showEmptyState(container, "現在お知らせを読み込めません。時間をおいて再度お試しください。");
-      });
+        return;
+      }
+      renderOshiraseList(container, sortByDate(res.items, "desc"));
+    });
   }
 
   function renderOshiraseList(container, items) {
@@ -178,9 +199,14 @@
         li.appendChild(thumb);
       }
 
+      var kindEl = document.createElement("span");
+      kindEl.className = "card-kind" + (item._kind === "イベント" ? " is-event" : "");
+      kindEl.textContent = item._kind || "お知らせ";
+      li.appendChild(kindEl);
+
       var dateEl = document.createElement("span");
       dateEl.className = "info-date";
-      dateEl.textContent = formatDate(item.date);
+      dateEl.textContent = " " + formatDate(item.date);
       li.appendChild(dateEl);
 
       var titleEl = document.createElement("h3");
@@ -201,26 +227,12 @@
     var container = document.getElementById("top-oshirase-list");
     if (!container) return;
 
-    var failed = 0;
-    var load = function (fetcher, kind) {
-      return fetcher()
-        .then(function (list) {
-          return list.map(function (item) { item._kind = kind; return item; });
-        })
-        .catch(function (err) {
-          failed++;
-          console.error(kind + "の取得に失敗しました:", err);
-          return [];
-        });
-    };
-
-    Promise.all([load(fetchOshirase, "お知らせ"), load(fetchEvents, "イベント")]).then(function (res) {
-      var all = res[0].concat(res[1]);
-      if (failed === 2) {
+    fetchAllNews().then(function (res) {
+      if (res.failedAll) {
         showEmptyState(container, "現在お知らせを読み込めません。時間をおいて再度お試しください。");
         return;
       }
-      renderTopOshiraseList(container, sortByDate(all, "desc").slice(0, 6));
+      renderTopOshiraseList(container, sortByDate(res.items, "desc").slice(0, 6));
     });
   }
 
