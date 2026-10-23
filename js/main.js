@@ -196,20 +196,32 @@
     });
   }
 
-  /* ---------- index.html: まちのニュース（最新3件） ---------- */
+  /* ---------- index.html: まちのニュース（お知らせ＋イベント 最新6件） ---------- */
   function initTopOshiraseList() {
     var container = document.getElementById("top-oshirase-list");
     if (!container) return;
 
-    fetchOshirase()
-      .then(function (list) {
-        var sorted = sortByDate(list, "desc").slice(0, 3);
-        renderTopOshiraseList(container, sorted);
-      })
-      .catch(function (err) {
-        console.error("お知らせの取得に失敗しました:", err);
+    var failed = 0;
+    var load = function (fetcher, kind) {
+      return fetcher()
+        .then(function (list) {
+          return list.map(function (item) { item._kind = kind; return item; });
+        })
+        .catch(function (err) {
+          failed++;
+          console.error(kind + "の取得に失敗しました:", err);
+          return [];
+        });
+    };
+
+    Promise.all([load(fetchOshirase, "お知らせ"), load(fetchEvents, "イベント")]).then(function (res) {
+      var all = res[0].concat(res[1]);
+      if (failed === 2) {
         showEmptyState(container, "現在お知らせを読み込めません。時間をおいて再度お試しください。");
-      });
+        return;
+      }
+      renderTopOshiraseList(container, sortByDate(all, "desc").slice(0, 6));
+    });
   }
 
   function renderTopOshiraseList(container, items) {
@@ -243,6 +255,10 @@
       var dateEl = document.createElement("span");
       dateEl.className = "card-date";
       dateEl.textContent = formatDate(item.date);
+      var kindEl = document.createElement("span");
+      kindEl.className = "card-kind" + (item._kind === "イベント" ? " is-event" : "");
+      kindEl.textContent = item._kind || "お知らせ";
+      body.appendChild(kindEl);
       body.appendChild(dateEl);
 
       var titleEl = document.createElement("h3");
@@ -256,7 +272,7 @@
       var moreEl = document.createElement("p");
       moreEl.className = "card-more";
       var moreLink = document.createElement("a");
-      moreLink.href = "news.html";
+      moreLink.href = item._kind === "イベント" ? "event.html" : "news.html";
       moreLink.textContent = "続きを読む →";
       moreEl.appendChild(moreLink);
       body.appendChild(moreEl);

@@ -574,3 +574,7 @@ img { max-width: 100%; display: block; }
 /* お知らせ本文内のチラシ画像 */
 .info-list .info-body img { display: block; width: 100%; max-width: 360px; height: auto; border-radius: 8px; margin: 0 0 12px; }
 .card-thumb img { object-position: top; }
+
+/* トップ「まちのニュース」の種別バッジ */
+.card-kind { display: inline-block; align-self: flex-start; margin: 0 0 6px; padding: 2px 10px; border-radius: 999px; font-size: .78rem; font-weight: 700; color: #fff; background: var(--green-deep); }
+.card-kind.is-event { background: var(--accent-orange); }
