@@ -596,3 +596,12 @@ img { max-width: 100%; display: block; }
   .promo-text { padding: 16px 18px 20px; }
   .promo-title { font-size: 1.15rem; }
 }
+
+/* ヒーロー: 1枚背景（NAHAのモニュメントを中央に） */
+.hero-photos.hero-single { grid-template-columns: 1fr; min-height: 420px; }
+.hero-photos.hero-single .ph { min-height: 420px; }
+.hero-photos.hero-single .ph img { object-position: 50% 59%; }
+@media (max-width: 860px) {
+  .hero-photos.hero-single { min-height: 340px; }
+  .hero-photos.hero-single .ph { min-height: 340px; }
+}
