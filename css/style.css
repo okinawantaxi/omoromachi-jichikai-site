@@ -598,10 +598,9 @@ img { max-width: 100%; display: block; }
 }
 
 /* ヒーロー: 1枚背景（NAHAのモニュメントを中央に） */
-.hero-photos.hero-single { grid-template-columns: 1fr; min-height: 420px; }
-.hero-photos.hero-single .ph { min-height: 420px; }
-.hero-photos.hero-single .ph img { object-position: 50% 59%; }
+.hero-photos.hero-single { grid-template-columns: 1fr; grid-template-rows: 100%; height: clamp(380px, 40vw, 600px); min-height: 0; }
+.hero-photos.hero-single .ph { height: 100%; min-height: 0; }
+.hero-photos.hero-single .ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 59%; }
 @media (max-width: 860px) {
-  .hero-photos.hero-single { min-height: 340px; }
-  .hero-photos.hero-single .ph { min-height: 340px; }
+  .hero-photos.hero-single { height: 360px; min-height: 0; }
 }
